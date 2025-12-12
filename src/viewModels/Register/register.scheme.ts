@@ -25,3 +25,5 @@ export const registerScheme = yup.object({
       "Phone number must have exactly 11 digits (DDD + number)"
     ),
 });
+
+export type RegisterFormData = yup.InferType<typeof registerScheme>;
