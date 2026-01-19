@@ -21,7 +21,7 @@ export const registerScheme = yup.object({
     .string()
     .required("Phone number is required")
     .matches(
-      /^\d(11)$/,
+      /^\d{11}$/,
       "Phone number must have exactly 11 digits (DDD + number)"
     ),
 });
