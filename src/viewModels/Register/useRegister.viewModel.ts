@@ -6,10 +6,10 @@ import { useUserStore } from "../../shared/store/user-store";
 import { useImage } from "../../shared/hooks/useImage";
 import { useState } from "react";
 import { CameraType } from "expo-image-picker";
+import { useUploadAvatarMutatin } from "../../shared/queries/auth/use-upload-avatar.mutation";
 
 export const useRegisterViewModel = () => {
-  const userRegisterMutation = useRegisterMutation();
-  const { setSession } = useUserStore();
+  const { updateUser } = useUserStore();
   const [avatarUri, setAvatarUri] = useState<string | null>(null);
 
   const { handleSelectImage } = useImage({
@@ -36,16 +36,21 @@ export const useRegisterViewModel = () => {
     },
   });
 
+  const uploadAvatarMutation = useUploadAvatarMutatin();
+
+  const userRegisterMutation = useRegisterMutation({
+    onSuccess: async () => {
+      if (avatarUri) {
+        const { url } = await uploadAvatarMutation.mutateAsync(avatarUri);
+        console.log("Uploaded avatar URL:", { url });
+        updateUser({ avatarUrl: url });
+      }
+    },
+  });
+
   const onSubmit = handleSubmit(async (userData) => {
     const { confirmPassword, ...registerData } = userData;
-
-    const mutationResponse =
-      await userRegisterMutation.mutateAsync(registerData);
-    setSession({
-      user: mutationResponse.user,
-      token: mutationResponse.token,
-      refreshToken: mutationResponse.refreshToken,
-    });
+    await userRegisterMutation.mutateAsync(registerData);
   });
 
   return {
