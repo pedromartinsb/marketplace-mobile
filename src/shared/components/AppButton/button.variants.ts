@@ -30,14 +30,18 @@ export const buttonVariants = tv({
     },
     variant: {
       field: {
-        base: "bg-purple-base border-purple-base",
+        // base: "bg-purple-base border-purple-base",
+        base: "bg-[#F08B6D] border-[#F08B6D]",
         text: "text-white",
         icon: "text-white",
       },
       outlined: {
-        base: "bg-transparent border-purple-base",
-        text: "text-purple-base",
-        icon: "text-purple-base",
+        // base: "bg-transparent border-purple-base",
+        base: "bg-transparent border-[#F08B6D]",
+        // text: "text-purple-base",
+        // icon: "text-purple-base",
+        text: "text-[#F08B6D]",
+        icon: "text-[#F08B6D]",
       },
     },
   },

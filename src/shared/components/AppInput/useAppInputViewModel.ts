@@ -49,8 +49,10 @@ export const useAppInputViewModel = ({
 
   const getIconColor = () => {
     if (isError) return colors.danger;
-    if (isFocused) return colors["purple-base"];
-    if (value) return colors["purple-base"];
+    if (isDisabled) return colors["primary"];
+    if (value) return colors["primary"];
+    // if (isFocused) return colors["purple-base"];
+    // if (value) return colors["purple-base"];
     return colors.gray["200"];
   };
 

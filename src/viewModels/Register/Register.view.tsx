@@ -6,22 +6,31 @@ import { AuthFormHeader } from "../../shared/components/AuthFormHeader";
 import { router } from "expo-router";
 import { KeyboardContainer } from "../../shared/components/KeyboardContainer";
 import { AppButton } from "../../shared/components/AppButton";
+import { Ionicons } from "@expo/vector-icons";
 
 export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
   control,
   onSubmit,
+  handleSelectAvatar,
 }) => {
   return (
     <KeyboardContainer>
       <ScrollView className="flex-1 px-[40px]">
-        <AuthFormHeader title="Register" subtitle="Create your account" />
+        <AuthFormHeader
+          title="Crie sua conta"
+          subtitle="Informe seus dados para criar sua conta"
+        />
+
+        <TouchableOpacity onPress={handleSelectAvatar}>
+          <Ionicons name="cloud-upload-outline" size={32} />
+        </TouchableOpacity>
 
         <AppInputController
           leftIcon="person-outline"
           label="NOME"
           control={control}
           name="name"
-          placeholder="Your name"
+          placeholder="Seu nome completo"
         />
 
         <AppInputController
@@ -32,14 +41,14 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           placeholder="(99) 99999-9999"
         />
 
-        <Text className="text-base mt-5 font-bold text-gray-500">Access</Text>
+        <Text className="text-base mt-5 font-bold text-gray-500">Acesso</Text>
 
         <AppInputController
           leftIcon="mail-outline"
           label="E-MAIL"
           control={control}
           name="email"
-          placeholder="mail@example.com"
+          placeholder="mail@example.com.br"
         />
 
         <AppInputController
@@ -47,7 +56,7 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           label="SENHA"
           control={control}
           name="password"
-          placeholder="Your password"
+          placeholder="Sua senha"
           secureTextEntry
         />
 
@@ -56,20 +65,28 @@ export const RegisterView: FC<ReturnType<typeof useRegisterViewModel>> = ({
           label="CONFIRMAR SENHA"
           control={control}
           name="confirmPassword"
-          placeholder="Confirm your password"
+          placeholder="Confirme sua senha"
           secureTextEntry
         />
 
-        <AppButton className="mt-6" onPress={onSubmit}>
-          Registrar
+        <AppButton
+          className="mt-6"
+          rightIcon="arrow-forward"
+          onPress={onSubmit}
+        >
+          Cadastrar
         </AppButton>
 
         <View className="mt-16">
           <Text className="text-base text-gray-300 mb-6">
             Já possui uma conta?
           </Text>
-          <AppButton variant="outlined" onPress={() => router.push("/login")}>
-            Login
+          <AppButton
+            variant="outlined"
+            rightIcon="arrow-forward"
+            onPress={() => router.push("/login")}
+          >
+            Acessar
           </AppButton>
         </View>
       </ScrollView>

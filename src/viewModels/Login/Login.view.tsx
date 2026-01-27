@@ -16,8 +16,8 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
       <View className="flex-1 items-center justify-center px-[40px]">
         <View className="flex-1 w-full items-center justify-center">
           <AuthFormHeader
-            title="Login"
-            subtitle="Welcome back! Please login to your account."
+            title="Acesse sua conta"
+            subtitle="Informe o seu e-mail e senha para entrar"
           />
 
           <AppInputController
@@ -25,7 +25,7 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
             name="email"
             label="E-MAIL"
             leftIcon="mail-outline"
-            placeholder="mail@example.com"
+            placeholder="mail@example.com.br"
           />
 
           <AppInputController
@@ -33,6 +33,7 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
             name="password"
             label="SENHA"
             leftIcon="lock-closed-outline"
+            placeholder="Sua senha"
             secureTextEntry
           />
 
@@ -41,7 +42,7 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
             rightIcon="arrow-forward"
             onPress={onSubmit}
           >
-            Login
+            Acessar
           </AppButton>
         </View>
 
@@ -54,7 +55,7 @@ export const LoginView: FC<ReturnType<typeof useLoginViewModel>> = ({
             rightIcon="arrow-forward"
             onPress={() => router.push("/register")}
           >
-            Registro
+            Cadastrar
           </AppButton>
         </View>
       </View>

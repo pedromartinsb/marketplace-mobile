@@ -18,4 +18,5 @@ export const colors = {
     400: "#3D3D3D",
     500: "#1D1D1D",
   },
+  primary: "#F08B6D",
 };
