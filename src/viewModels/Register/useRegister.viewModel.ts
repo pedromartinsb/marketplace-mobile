@@ -3,34 +3,22 @@ import { useForm } from "react-hook-form";
 import { useRegisterMutation } from "../../shared/queries/auth/use-register.mutation";
 import { RegisterFormData, registerScheme } from "./register.scheme";
 import { useUserStore } from "../../shared/store/user-store";
-import { useAppModal } from "../../shared/hooks/useAppModal";
-import { useCamera } from "../../shared/hooks/useCamera";
+import { useImage } from "../../shared/hooks/useImage";
+import { useState } from "react";
+import { CameraType } from "expo-image-picker";
 
 export const useRegisterViewModel = () => {
   const userRegisterMutation = useRegisterMutation();
-  const { setSession, user } = useUserStore();
-  const modals = useAppModal();
-  const { openCamera } = useCamera({});
+  const { setSession } = useUserStore();
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
 
-  const handleSelectAvatar = () => {
-    modals.showSelection({
-      title: "Selecionar foto",
-      message: "Escolha uma opção:",
-      options: [
-        {
-          text: "Galeria",
-          icon: "images",
-          variant: "primary",
-          onPress: () => alert("Galeria"),
-        },
-        {
-          text: "Câmera",
-          icon: "camera",
-          variant: "primary",
-          onPress: () => openCamera(),
-        },
-      ],
-    });
+  const { handleSelectImage } = useImage({
+    callback: setAvatarUri,
+    cameraType: CameraType.front,
+  });
+
+  const handleSelectAvatar = async () => {
+    await handleSelectImage();
   };
 
   const {
@@ -58,7 +46,6 @@ export const useRegisterViewModel = () => {
       token: mutationResponse.token,
       refreshToken: mutationResponse.refreshToken,
     });
-    console.log("Registered user:", user);
   });
 
   return {
@@ -66,5 +53,6 @@ export const useRegisterViewModel = () => {
     errors,
     onSubmit,
     handleSelectAvatar,
+    avatarUri,
   };
 };
